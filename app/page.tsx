@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import Image from "next/image";
 import Brand from "./Brand";
 import LeadForm from "./LeadForm";
 import ValueCalculator from "./ValueCalculator";
 import ProcessSection from "./ProcessSection";
+export const metadata: Metadata = {
+  alternates: { canonical: "https://otthonodpiaca.hu/" },
+};
+
 const icons = [
   <svg key="chart" viewBox="0 0 64 64">
     <path d="M9 53V36h10v17zm18 0V23h10v30zm18 0V9h10v44z" />

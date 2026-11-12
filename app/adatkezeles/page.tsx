@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 export const metadata: Metadata = {
-  title: "Adatkezelési tájékoztató | Otthonod Piaca",
+  title: "Adatkezelési tájékoztató",
   robots: { index: false, follow: true },
 };
 export default function Privacy() {
