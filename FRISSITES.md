@@ -1,28 +1,16 @@
-# Frissítés – 1.3 / Kalkulátor
+# Frissítés – 1.4 / Kilépés előtti ajánlat
 
-1. Állítsd le a helyi szervert (Ctrl+C).
-2. A ZIP tartalmával írd felül az F:\otthonod-piaca projekt azonos nevű fájljait.
-3. A saját .env.local fájlodat és .git mappádat tartsd meg.
-4. CMD-ben:
+A ZIP tartalmát másold az F:\otthonod-piaca mappába felülírással. A .env.local fájlodat és a .git mappát tartsd meg.
 
 ```cmd
 cd /d F:\otthonod-piaca
 npm ci
-npm run test:calculator
+npm run test:exit
 npm run build
-npm run dev
 ```
 
-A kalkulátor a három előnykártya után jelenik meg. Jelenleg egyértelműen jelölt mintaárakkal működik. Saját piaci árakat az app/lib/valuation.ts fájlban, Ft/m² egységben állíthatsz be; az eredményt addig ne kezeld hiteles piaci értékbecslésként.
+Hibamentes build után Git és Vercel a szokásos módon.
 
-A Formspree-űrlap és a Groq-chat meglévő kódja megmaradt. Új környezeti változó nem kell.
+Teszt: frissen megnyitott böngészőfülön az első 15 másodpercben vidd az egeret az oldal tetején túlra. A modál egyszer jelenjen meg. Esc-pel zárható, és ugyanabban a munkamenetben nem nyílik újra. A fő gomb a kapcsolati űrlapra visz. A sessionStorage megmarad újratöltéskor, így újabb megjelenési próbához új munkamenet kell.
 
-Helyi ellenőrzés után:
-
-```cmd
-git add .
-git commit -m "Lakasar kalkulator beepitese"
-git push
-```
-
-Vercel zöld után Ctrl+F5. A teljes szimulált ellenőrzéshez npm run test:interest és npm run test:chat is futtatható; ezek nem küldenek valódi üzenetet.
+Mobilon görgess le legalább 300 px-t, majd gyorsan vissza az oldal tetejére, szintén az első 15 másodpercen belül. Az adatkezelési oldalon nem jelenik meg.

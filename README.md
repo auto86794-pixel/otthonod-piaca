@@ -1,4 +1,4 @@
-# Otthonod Piaca – 1.3 / Kalkulátor
+# Otthonod Piaca – 1.4 / Kilépés előtti ajánlat
 
 Teljes Next.js-projekt, az elfogadott világos zsályazöld–bézs landinggel, működő chatkóddal és Formspree-re átállított visszahíváskérő űrlappal.
 
@@ -72,3 +72,11 @@ A bizonytalan vagy kevert helymegnevezések helyett külön Belváros, Vénkert,
 A modell az alapterületet, állapotot és opcionális szobaszámot kezeli. A ±8%-os ársáv nem statisztikai pontosságot jelent. Nem veszi figyelembe például az épülettípust, emeletet vagy energetikát. Ház és telek esetén személyes egyeztetés javasolt. A számítás helyben történik, nem küld adatot külső szolgáltatásnak.
 
 Ellenőrizve: helyes Ft-egység, állapot- és szobaszám-szorzók, szélsőértékek, érvénytelen mezők. Böngészőben a 62 m²-es belvárosi mintapélda 42,8–50,2 millió Ft sávot ad; módosításkor az eredmény eltűnik, 14 m² esetén a számítás nem indítható. A kalkulátor-, chat- és űrlaptesztek, valamint a production build sikeresek.
+
+## Kilépés előtti ajánlat
+
+Az app/ExitModal.tsx a főoldalon jelenít meg ajánlatot. Asztali gépen az egér felső kilépésekor, érintős készüléken legalább 300 px olvasás után a tetejére történő gyors visszagörgetéskor. Csak a megnyitást követő első 15 másodpercben aktív; ezután nem jelenik meg. Munkamenetenként legfeljebb egyszer, sessionStorage alapján. Tiltott tárhely esetén a komponens élettartama alatt egyszeri. Űrlap vagy chat aktív kitöltése közben nem nyílik meg.
+
+A natív dialog kezeli a modális fókuszt; Esc, bezárógomb, háttérkattintás és a „Most nem kérem” gomb zárja. A fő gomb a #kapcsolat űrlaphoz visz, nem a mintaáras kalkulátorhoz. Nincs automatikus kapcsolatfelvétel, küldés vagy el nem fogadott válaszidő-ígéret. Csökkentett mozgás beállítást támogat.
+
+Ellenőrzés: npm run test:exit. A szimulált teszt ellenőrzi az egyszeri megjelenést, 15 másodperces korlátot, útvonalat, aktív bevitelt, mobil görgetési feltételt és eseménykezelők takarítását. Production build és a korábbi három teszt sikeres. A modál kézi böngészős megjelenési tesztje a csomag készítésekor nem történt meg.

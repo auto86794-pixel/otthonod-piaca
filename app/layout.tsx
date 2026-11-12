@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import ChatWidget from "./ChatWidget";
+import ExitModal from "./ExitModal";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://otthonodpiaca.hu"),
@@ -31,6 +32,7 @@ export default function RootLayout({
         </a>
         {children}
         <ChatWidget />
+        <ExitModal />
       </body>
     </html>
   );
