@@ -24,9 +24,6 @@ export default function Home() {
   );
   return (
     <>
-      <a className="skip" href="#tartalom">
-        Ugrás a tartalomhoz
-      </a>
       <header>
         <div className="header-inner">
           <Brand />

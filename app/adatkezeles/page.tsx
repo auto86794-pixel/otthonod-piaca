@@ -8,7 +8,7 @@ export default function Privacy() {
   const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
   const address = process.env.NEXT_PUBLIC_CONTROLLER_ADDRESS;
   return (
-    <main className="legal">
+    <main className="legal" id="tartalom">
       <a className="back" href="/">
         ← Vissza a főoldalra
       </a>
@@ -59,6 +59,21 @@ export default function Privacy() {
           </p>
         </>
       )}
+      <h2>AI chat asszisztens</h2>
+      <p>
+        A chatbe beírt üzeneteket válaszadás céljából a Groq szolgáltatásának
+        továbbítjuk. A beszélgetés az oldal megnyitott példányának memóriájában
+        marad, újratöltéskor törlődik; az alkalmazás nem menti adatbázisba vagy
+        böngészőtárba. A szolgáltatói adatkezelésről a Groq saját tájékoztatója
+        rendelkezik. A chatben ne adj meg telefonszámot, e-mail-címet vagy más
+        bizalmas adatot; visszahívást a Kapcsolat űrlapján kérhetsz.
+      </p>
+      <p>
+        Az asszisztens tájékoztató válaszokat ad, nem készít személyre szabott
+        értékbecslést és nem rögzít megbízást. A túl gyakori kérések
+        korlátozásához a szerverpéldány rövid ideig memóriában tartja a kérések
+        IP-címét és időpontját.
+      </p>
     </main>
   );
 }

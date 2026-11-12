@@ -1,25 +1,37 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ChatWidget from "./ChatWidget";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://otthonodpiaca.hu"),
-  title: "Otthonod Piaca | Ingatlaneladás Debrecenben",
+  title: "Otthonod Piaca – Ingatlan értékesítés Debrecenben",
   description:
-    "Az otthonod érték. Hozzuk ki belőle a legtöbbet. Személyes figyelem és átgondolt ingatlanértékesítés Debrecenben és környékén.",
+    "Gyors, diszkrét és megbízható ingatlaneladás Debrecenben és környékén. Kérj ingyenes értékbecslést még ma!",
   openGraph: {
-    title: "Otthonod Piaca",
-    description: "Az otthonod érték. Hozzuk ki belőle a legtöbbet.",
-    locale: "hu_HU",
+    title: "Otthonod Piaca – Ingatlan értékesítés Debrecenben",
+    description:
+      "Gyors, diszkrét és megbízható ingatlaneladás Debrecenben és környékén.",
     type: "website",
+    locale: "hu_HU",
     images: ["/otthon-nappali.webp"],
   },
   robots: { index: true, follow: true },
 };
-export default function Layout({
+
+export default function RootLayout({
   children,
-}: Readonly<{ children: React.ReactNode }>) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html lang="hu">
-      <body>{children}</body>
+      <body>
+        <a href="#tartalom" className="skip">
+          Ugrás a tartalomra
+        </a>
+        {children}
+        <ChatWidget />
+      </body>
     </html>
   );
 }

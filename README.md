@@ -1,4 +1,4 @@
-# Otthonod Piaca – 1.0
+# Otthonod Piaca – 1.1 / chat
 
 Next.js webapp az elfogadott világos, zsályazöld–bézs látványterv alapján.
 
@@ -70,3 +70,18 @@ A csomag átadásakor a production build és a TypeScript ellenőrzés sikeres v
 Éles e-mail-kézbesítés csak a saját API-kulcs, hitelesített feladó és fogadó megadása után tesztelhető. Publikáláskor küldj egy próbaérdeklődést és ellenőrizd a célpostafiókot, valamint a Resend küldési naplóját.
 
 Node.js: legalább 20.9; ajánlott aktuális LTS. A node_modules, .next és a titkos .env.local nem része a ZIP-nek.
+
+
+## Chat – új ebben a csomagban
+
+Beépítve: app/ChatWidget.tsx, app/api/chat/route.ts, a layout bekötése és az átadott zsályazöld chatstílusok. A sérült bemásolás javítva, a skip-link nem duplikálódik.
+
+A chat Groqon az openai/gpt-oss-20b modellt használja. A beküldött llama-3.1-8b-instant modellt a szolgáltató a Free/Developer csomagokban kivezette (https://console.groq.com/docs/deprecations).
+
+Az AI_API_KEY értéke továbbra is a Groq konzolból származó kulcs, nem OpenAI-kulcs. Helyben a meglévő .env.local fájlba kerüljön, Vercelen az Environment Variables beállításokba. Új függőség nem szükséges a chathez.
+
+Az üzenetek az alkalmazásban csak az aktuális oldal memóriájában élnek; nincs chat-adatbázis. A chat szolgáltatói feldolgozásáról az adatkezelési szöveg és a panel alján látható tájékoztatás is frissült. Személyes adatot a Kapcsolat űrlapra irányítunk. A chat nem rögzít visszahíváskérést.
+
+A 20 kérés/perc korlát IP-címenként, az adott szerverpéldány memóriájában működik, ezért több Vercel-példány között nem közös. Kiegészítő védelem, nem garantált globális kvóta. Nagyobb publikus forgalomhoz később megosztott korlátozó szükséges.
+
+A hibás kérés, a hiányzó kulcs, a szimulált Groq-válasz, a szolgáltatói hiba, az időtúllépés és a kéréskorlátozás ellenőrzése: npm run test:chat. Ez nem használ éles kulcsot és nem küld Groq-kérést.
