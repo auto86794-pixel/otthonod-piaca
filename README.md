@@ -1,4 +1,4 @@
-# Otthonod Piaca – 1.4 / Kilépés előtti ajánlat
+# Otthonod Piaca – 1.5 / Ötlépéses eladási folyamat
 
 Teljes Next.js-projekt, az elfogadott világos zsályazöld–bézs landinggel, működő chatkóddal és Formspree-re átállított visszahíváskérő űrlappal.
 
@@ -80,3 +80,7 @@ Az app/ExitModal.tsx a főoldalon jelenít meg ajánlatot. Asztali gépen az eg�
 A natív dialog kezeli a modális fókuszt; Esc, bezárógomb, háttérkattintás és a „Most nem kérem” gomb zárja. A fő gomb a #kapcsolat űrlaphoz visz, nem a mintaáras kalkulátorhoz. Nincs automatikus kapcsolatfelvétel, küldés vagy el nem fogadott válaszidő-ígéret. Csökkentett mozgás beállítást támogat.
 
 Ellenőrzés: npm run test:exit. A szimulált teszt ellenőrzi az egyszeri megjelenést, 15 másodperces korlátot, útvonalat, aktív bevitelt, mobil görgetési feltételt és eseménykezelők takarítását. Production build és a korábbi három teszt sikeres. A modál kézi böngészős megjelenési tesztje a csomag készítésekor nem történt meg.
+
+## Ötlépéses eladási folyamat
+
+Az app/ProcessSection.tsx önálló szerverkomponens. A korábbi háromlépéses szakaszt váltja; a kalkulátor után és a kapcsolati űrlap előtt jelenik meg. A #folyamat hivatkozások az új idővonalra visznek, a szakasz gombja a #kapcsolat űrlapra vezet. A sérült szövegek javítva, az ügyvédi jogi munka külön megnevezve. A mobilos CSS kisebb köröket és térközöket használ, 16 px-es szöveggel.

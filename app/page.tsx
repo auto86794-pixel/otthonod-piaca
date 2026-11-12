@@ -2,6 +2,7 @@ import Image from "next/image";
 import Brand from "./Brand";
 import LeadForm from "./LeadForm";
 import ValueCalculator from "./ValueCalculator";
+import ProcessSection from "./ProcessSection";
 const icons = [
   <svg key="chart" viewBox="0 0 64 64">
     <path d="M9 53V36h10v17zm18 0V23h10v30zm18 0V9h10v44z" />
@@ -111,6 +112,7 @@ export default function Home() {
             <ValueCalculator />
           </div>
         </section>
+        <ProcessSection />
         <section id="kapcsolat" className="contact-section">
           <div className="contact-inner wrap">
             <div className="contact-copy">
@@ -130,38 +132,6 @@ export default function Home() {
             </div>
             <LeadForm />
           </div>
-        </section>
-        <section id="folyamat" className="process wrap">
-          <p className="eyebrow">EGYÜTT, LÉPÉSRŐL LÉPÉSRE</p>
-          <h2>Az eladásnak legyen terve.</h2>
-          <div className="steps">
-            {[
-              [
-                "01",
-                "Megismerjük az otthonod",
-                "Átbeszéljük a céljaidat, az ingatlan adottságait és az eladás tervezett időzítését.",
-              ],
-              [
-                "02",
-                "Megtervezzük az értékesítést",
-                "Piaci összehasonlítással, átgondolt árazással és vonzó bemutatással készülünk a piacra lépésre.",
-              ],
-              [
-                "03",
-                "Végig melletted maradunk",
-                "Segítünk az érdeklődők kezelésében, a megtekintésekben és az értékesítés következő lépéseiben.",
-              ],
-            ].map(([n, t, d]) => (
-              <article key={n}>
-                <span className="step-number">{n}</span>
-                <h3>{t}</h3>
-                <p>{d}</p>
-              </article>
-            ))}
-          </div>
-          <a className="text-link" href="#kapcsolat">
-            Beszéljünk az ingatlanodról <span aria-hidden="true">→</span>
-          </a>
         </section>
       </main>
       <footer className="wrap">
