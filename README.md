@@ -1,4 +1,4 @@
-# Otthonod Piaca – 1.6 / SEO-előkészítés
+# Otthonod Piaca – 1.7 / GYIK és Analytics
 
 Teljes Next.js-projekt, az elfogadott világos zsályazöld–bézs landinggel, működő chatkóddal és Formspree-re átállított visszahíváskérő űrlappal.
 
@@ -90,3 +90,11 @@ Az app/ProcessSection.tsx önálló szerverkomponens. A korábbi háromlépéses
 Magyar SEO-cím és címsablon, személyes értékbecsléshez igazított leírás, kulcsszavak, Open Graph és Twitter-kártya a meglévő nappalifotóval. A főoldal canonical címe az otthonodpiaca.hu. A sitemap és robots ugyanezt a domaint használja. Az adatkezelési oldal noindex marad, de a robotok olvashatják ezt az utasítást.
 
 A generált production HTML-ben ellenőrizve: cím, canonical, OG-siteName, Twitter-kártya, adatkezelési címsablon és noindex. Build hibamentes. A domain csatlakoztatása, HTTPS és Search Console-beküldés későbbi lépés.
+
+## GYIK és Analytics
+
+A hatkérdéses GYIK az eladási folyamat után, az űrlap előtt található. Egyszerre egy válasz nyitott, újabb kattintással az is bezárható. Natív gombok, aria-expanded és aria-controls, rejtett válaszpanelek, hosszkorlát nélküli válaszok. A FAQPage JSON-LD ugyanazokat a kérdéseket és válaszokat tartalmazza; nem ígér keresőbeli kiemelt találatot. A végleges jutalék- és költségfeltételeknek egyezniük kell a közzétett válaszokkal.
+
+Az @vercel/analytics csomag és az Analytics komponens bekerült a layoutba, a widgetek után. A Vercel projekt Analytics / Web Analytics részében külön engedélyezni kell a mérést, majd szükség esetén új deployment. A szolgáltatói adatgyűjtés és a dashboard megjelenése nem volt élőben ellenőrizhető. Nem adtunk hozzá saját eseményeket, űrlap- vagy chattartalmat. Az adatkezelési oldal kiegészült a mérés megnevezésével.
+
+Ellenőrizve: production build, GYIK állapotváltás és bezárás, ARIA-kapcsolatok, látható válaszokkal egyező JSON-LD, valamint a korábbi négy funkcionális teszt. npm run test:faq. Kézi mobilos és böngészős megjelenési teszt még szükséges.

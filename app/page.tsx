@@ -4,6 +4,7 @@ import Brand from "./Brand";
 import LeadForm from "./LeadForm";
 import ValueCalculator from "./ValueCalculator";
 import ProcessSection from "./ProcessSection";
+import FaqSection from "./FaqSection";
 export const metadata: Metadata = {
   alternates: { canonical: "https://otthonodpiaca.hu/" },
 };
@@ -118,6 +119,7 @@ export default function Home() {
           </div>
         </section>
         <ProcessSection />
+        <FaqSection />
         <section id="kapcsolat" className="contact-section">
           <div className="contact-inner wrap">
             <div className="contact-copy">

@@ -1,11 +1,14 @@
-# Frissítés – 1.6 / SEO
+# Frissítés – 1.7 / GYIK és Analytics
 
-Másold a ZIP tartalmát az F:\otthonod-piaca projektbe felülírással. A saját .env.local és .git maradjon meg.
+Másold a ZIP tartalmát az F:\otthonod-piaca mappába felülírással. A saját .env.local fájlt és .git mappát tartsd meg.
 
 ```cmd
 cd /d F:\otthonod-piaca
 npm ci
+npm run test:faq
 npm run build
 ```
 
-Hibamentes build után Git, majd Vercel. A látvány változatlan; a SEO-adatok az oldal forrásában jelennek meg. A végleges domain csatlakoztatása után ellenőrizhető a HTTPS, a /robots.txt és a /sitemap.xml, majd beküldhető a sitemap a Search Console-ba.
+Git és Vercel zöld után Ctrl+F5. Ellenőrizd a GYIK hat kérdését, kattintással és billentyűzettel a nyitást/bezárást, mobilon a teljes válaszszöveget.
+
+Vercel projekt → Analytics / Web Analytics → Enable. Ezután szükség esetén új deployment, majd valódi oldalmegnyitás után a dashboardon ellenőrizhető a mérés. A bekötött kód önmagában nem igazolja a beérkező statisztikát.

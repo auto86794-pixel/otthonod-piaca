@@ -68,6 +68,14 @@ export default function Privacy() {
         hírlevél-feliratkozás. Az alkalmazás nem menti az adatokat a böngésző
         tartós tárhelyére.
       </p>
+      <h2>Látogatottsági statisztika</h2>
+      <p>
+        Az oldal a Vercel Web Analytics szolgáltatását használja az
+        oldalmegtekintések és a látogatottság összesített mérésére.
+        Az űrlapmezők és a chatüzenetek tartalmát nem adjuk át analitikai
+        eseményként. A szolgáltatás működéséről és adatkezeléséről a
+        {" "}<a href="https://vercel.com/docs/analytics/privacy-policy">Vercel tájékoztatója</a> ad részletes információt.
+      </p>
       <h2>AI chat asszisztens</h2>
       <p>
         A chatbe beírt üzeneteket válaszadás céljából a Groq szolgáltatásának

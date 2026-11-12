@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import ChatWidget from "./ChatWidget";
 import ExitModal from "./ExitModal";
@@ -51,6 +52,7 @@ export default function RootLayout({
         {children}
         <ChatWidget />
         <ExitModal />
+        <Analytics />
       </body>
     </html>
   );
