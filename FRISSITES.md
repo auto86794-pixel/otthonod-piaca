@@ -1,42 +1,37 @@
-# Frissítés a meglévő projektre
+# Frissítés Formspree-re
 
-1. Állítsd le a futó fejlesztői szervert (Ctrl+C).
-2. A ZIP tartalmát másold az F:\otthonod-piaca mappába, és engedélyezd az azonos nevű projektfájlok felülírását.
-3. A saját .env.local fájlodat és a .git könyvtárat tartsd meg. A ZIP ezeket nem tartalmazza. A .env.example csak minta, nem helyettesíti a .env.local fájlt.
+1. Állítsd le a futó helyi szervert (Ctrl+C).
+2. A ZIP tartalmát másold az F:\otthonod-piaca mappába, és írd felül az azonos nevű projektfájlokat.
+3. A saját .env.local és .git fájlokat / mappát tartsd meg. A csomag ezeket nem tartalmazza.
 4. CMD:
 
 ```cmd
 cd /d F:\otthonod-piaca
 npm ci
 npm run build
-npm run test:chat
-npm run dev
 ```
 
-A helyi .env.local fájlban szerepeljen:
-
-```env
-AI_API_KEY=sajat_groq_kulcs
-```
-
-A kulcs után ne maradjon szóköz. Valódi kulcsot ne tegyél Gitbe vagy chatüzenetbe.
-
-5. Nyisd meg a http://localhost:3000 oldalt, kattints a chat ikonra és kérdezd: Hogyan indul az ingatlaneladás?
-6. Ha a build és a helyi próba rendben van:
+Ha a build hibamentes:
 
 ```cmd
 git add .
-git commit -m "Otthonod Piaca - AI chat beepitese"
+git commit -m "Visszahivaskeres atallitasa Formspree-re"
 git push
 ```
 
-7. Vercel → projekt → Settings → Environment Variables: AI_API_KEY, a saját Groq-kulcsoddal. Állítsd be Production környezetre (Previewra is, ha ott is használni szeretnéd). Ezután indíts Redeploy-t. A helyi .env.local nem kerül át automatikusan a Vercelre.
+A Formspree-cím már a kódban szerepel: https://formspree.io/f/myewzjjg
 
-Ha a Vercelen megjelenik a chat, de még nem válaszol, ellenőrizd az AI_API_KEY meglétét, az új deploymentet és a Groq projekt hozzáférését / kvótáját. A kulcsot továbbra se tedd képernyőképre.
+Az űrlaphoz új Vercel környezeti változó nem szükséges. Az AI_API_KEY maradjon meg, azt továbbra is a chat használja.
 
-## Ellenőrzés a csomag készítésekor
+A Vercel zöld állapota után töltsd újra az éles oldalt (Ctrl+F5), és küldj egy saját próbaérdeklődést. A gomb már aktív lesz, de a mezők és a hozzájárulás kitöltése kötelező. Ellenőrizd a Formspree-fiók beérkezett bejegyzéseit és a célpostafiókot, szükség esetén a levélszemét mappát is.
 
-- Production build és TypeScript: sikeres.
-- API-szerződés és hibakezelés: automatikus, szimulált szolgáltatói válaszokkal ellenőrizve.
-- Böngészőben: nyitás, szövegbevitel, küldés, hiányzó kulcs jelzése, beírt kérdés megőrzése, Escape és újranyitás ellenőrizve.
-- Valódi Groq-válasz: a saját, helyben tárolt kulcsoddal kell ellenőrizni. A csomag készítésekor nem állt rendelkezésre éles kulcs.
+Ha a gomb még szürkén, „hamarosan elérhető” szöveggel jelenik meg, a korábbi verziót látod: ellenőrizd, hogy ez a csomag került-e Gitbe és az új Vercel-deploymentbe.
+
+A teljes helyi ellenőrzés opcionálisan:
+
+```cmd
+npm run test:interest
+npm run test:chat
+```
+
+Ezek szimulált tesztek, nem küldenek valódi megkeresést.

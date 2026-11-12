@@ -1,35 +1,37 @@
 "use client";
 import { useRef, useState } from "react";
-export default function LeadForm({ ready }: { ready: boolean }) {
+export default function LeadForm() {
   const [status, setStatus] = useState("");
   const [busy, setBusy] = useState(false);
   const [success, setSuccess] = useState(false);
-  const key = useRef("");
+  const sending = useRef(false);
   return (
     <form
       className="lead-form"
+      aria-busy={busy}
       onSubmit={async (e) => {
         e.preventDefault();
-        if (busy || success) return;
+        if (sending.current || success) return;
+        sending.current = true;
         const form = e.currentTarget;
         const data = new FormData(form);
         setBusy(true);
         setStatus("");
-        key.current ||= crypto.randomUUID();
         try {
           const r = await fetch("/api/interest", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Idempotency-Key": key.current,
             },
             body: JSON.stringify(Object.fromEntries(data)),
+            signal: AbortSignal.timeout(20000),
           });
           const result = await r.json();
           if (!r.ok)
             throw new Error(
               result.error || "A küldés nem sikerült. Kérjük, próbáld újra.",
             );
+          if (result.ok !== true) throw new Error("Nem érkezett sikeres visszaigazolás. Kérjük, próbáld újra később.");
           setSuccess(true);
           setStatus(
             "Köszönjük a megkeresésed! A megadott telefonszámon jelentkezünk.",
@@ -37,12 +39,13 @@ export default function LeadForm({ ready }: { ready: boolean }) {
           form.reset();
         } catch (error) {
           setStatus(
-            error instanceof Error
+            error instanceof Error && error.name !== "TimeoutError"
               ? error.message
-              : "Kapcsolódási hiba. Kérjük, próbáld újra.",
+              : "A küldést nem sikerült visszaigazolni. Lehetséges, hogy a kérés már megérkezett. Kérjük, ne küldd el azonnal újra.",
           );
         } finally {
           setBusy(false);
+          sending.current = false;
         }
       }}
     >
@@ -76,7 +79,7 @@ export default function LeadForm({ ready }: { ready: boolean }) {
             autoComplete="tel"
             placeholder="Pl. +36 30 123 4567"
             required
-            pattern="[+0-9() /–-]{7,25}"
+            minLength={7}
             maxLength={25}
           />
           <label htmlFor="location">
@@ -113,16 +116,11 @@ export default function LeadForm({ ready }: { ready: boolean }) {
           <button
             className="button primary"
             type="submit"
-            disabled={busy || !ready}
+            disabled={busy}
           >
             {busy ? "Küldés folyamatban…" : "Visszahívást kérek"}
             <span aria-hidden="true">→</span>
           </button>
-          {!ready && (
-            <p className="form-note">
-              Az online visszahíváskérés hamarosan elérhető.
-            </p>
-          )}
           {status && (
             <p className="form-error" role="alert">
               {status}

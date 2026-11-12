@@ -16,7 +16,6 @@ export default function Privacy() {
       {!name || !email || !address ? (
         <p>
           Az adatkezelő adatai és a végleges tájékoztató feltöltés alatt állnak.
-          Az online kapcsolatfelvételi űrlap addig nem fogad megkereséseket.
         </p>
       ) : (
         <>
@@ -38,7 +37,7 @@ export default function Privacy() {
           <h2>Továbbítás és megőrzés</h2>
           <p>
             A megkeresés e-mailben jut el az adatkezelőhöz. A tárhelyet a
-            Vercel, az e-mail-továbbítást a Resend biztosítja. Az adatokat az
+            Vercel, az űrlapadatok fogadását és az e-mail-értesítést a Formspree biztosítja. Az adatokat az
             egyeztetés lezárását követő legfeljebb 90 napig őrizzük meg, kivéve,
             ha az érintettel külön megbízás jön létre vagy más megőrzési
             kötelezettség merül fel.
@@ -59,6 +58,16 @@ export default function Privacy() {
           </p>
         </>
       )}
+      <h2>Az űrlapadatok továbbítása</h2>
+      <p>
+        A visszahíváskérő űrlapon megadott nevet, telefonszámot, az ingatlan helyét
+        és a hozzájárulást a Formspree szolgáltatásának továbbítjuk. A beküldés a
+        szolgáltatás felületén tárolódik, és a beállított kapcsolattartónak
+        e-mail-értesítés küldhető róla. Az adatokat a kapcsolatfelvétel és az
+        ingatlannal kapcsolatos egyeztetés céljára használjuk; ez nem
+        hírlevél-feliratkozás. Az alkalmazás nem menti az adatokat a böngésző
+        tartós tárhelyére.
+      </p>
       <h2>AI chat asszisztens</h2>
       <p>
         A chatbe beírt üzeneteket válaszadás céljából a Groq szolgáltatásának

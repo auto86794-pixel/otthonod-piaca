@@ -14,14 +14,6 @@ const icons = [
   </svg>,
 ];
 export default function Home() {
-  const ready = !!(
-    process.env.RESEND_API_KEY &&
-    process.env.LEAD_FROM_EMAIL &&
-    process.env.LEAD_TO_EMAIL &&
-    process.env.NEXT_PUBLIC_CONTACT_NAME &&
-    process.env.NEXT_PUBLIC_CONTACT_EMAIL &&
-    process.env.NEXT_PUBLIC_CONTROLLER_ADDRESS
-  );
   return (
     <>
       <header>
@@ -118,7 +110,7 @@ export default function Home() {
                 tudnivalókat egy értékbecsléshez.
               </p>
             </div>
-            <LeadForm ready={ready} />
+            <LeadForm />
           </div>
         </section>
         <section id="folyamat" className="process wrap">

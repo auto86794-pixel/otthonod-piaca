@@ -1,13 +1,14 @@
 {
   "name": "otthonod-piaca",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "scripts": {
     "dev": "node scripts/dev.mjs",
     "build": "next build --webpack",
     "start": "next start --hostname 0.0.0.0",
     "typecheck": "tsc --noEmit",
-    "test:chat": "node scripts/check-chat.cjs"
+    "test:chat": "node scripts/check-chat.cjs",
+    "test:interest": "node scripts/check-interest.cjs"
   },
   "dependencies": {
     "next": "16.4.6",
