@@ -68,6 +68,22 @@ export default function Privacy() {
         hírlevél-feliratkozás. Az alkalmazás nem menti az adatokat a böngésző
         tartós tárhelyére.
       </p>
+      <h2>PDF útmutató igénylése</h2>
+      <p>
+        Az útmutató igénylésekor az e-mail-címet, az adatkezelési hozzájárulást,
+        az esetlegesen kért egyszeri e-mailes megkeresés jelzését, a forrást
+        és az igénylés időpontját a Formspree szolgáltatásnak továbbítjuk.
+        A PDF az oldalon tölthető le; automatikus hírlevél vagy e-mail nem indul.
+        Az egyszeri értékesítési egyeztetés külön, önkéntes hozzájáruláshoz kötött,
+        és nem feltétele a letöltési link megjelenítésének.
+      </p>
+      <p>
+        Az igénylési adatokat a kérés kezeléséhez használjuk, legfeljebb 90 napig
+        őrizzük meg, kivéve, ha külön megbízás jön létre vagy más megőrzési
+        kötelezettség merül fel. Törlést és a hozzájárulás visszavonását a fenti
+        kapcsolati címen kérheted. A tényleges adatkezelést az adatkezelő végleges
+        adataival és megőrzési gyakorlatával összhangban kell végezni.
+      </p>
       <h2>Látogatottsági statisztika</h2>
       <p>
         Az oldal a Vercel Web Analytics szolgáltatását használja az

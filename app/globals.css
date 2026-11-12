@@ -1224,3 +1224,29 @@ footer p {
 .faq-more a { color: var(--green); font-weight: 600; }
 @media (max-width: 560px) { .faq-section { padding: 42px 0; } .faq-q { padding: 16px 14px; } .faq-a { padding: 0 14px 18px; } }
 @media (prefers-reduced-motion: reduce) { .faq-item { transition: none; } }
+
+/* PDF útmutató - önálló osztályokkal, a visszahíváskérő űrlap megőrzésével. */
+.lead-magnet-section { padding: 64px 0; background: #f9f7f0; border-top: 1px solid var(--line); }
+.lead-magnet-inner { display: grid; grid-template-columns: 280px 1fr; gap: 54px; align-items: center; max-width: 1040px; }
+.guide-preview { color: #fff; background: #405d34; border-radius: 8px 24px 24px 8px; padding: 30px; box-shadow: 10px 14px 0 #dedfce; border-left: 8px solid #314829; }
+.guide-preview > span { font-size: 12px; letter-spacing: .13em; }
+.guide-preview strong { display: block; font: 110px/1.2 Georgia, serif; color: #e2d8b8; margin: 18px 0 4px; }
+.guide-preview p { font: 25px/1.25 Georgia, serif; margin: 0 0 36px; }
+.guide-preview small { font-size: 10px; letter-spacing: .09em; }
+.guide-copy { min-width: 0; }
+.guide-copy .section-title { font-size: clamp(30px, 3.6vw, 44px); line-height: 1.13; margin: 0 0 18px; }
+.guide-copy .section-lead { color: var(--muted); font-size: 17px; line-height: 1.6; }
+.lead-magnet-form { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+.lead-magnet-form > label { font-weight: 600; }
+.lead-magnet-fields { display: flex; gap: 10px; flex-wrap: wrap; }
+.lead-magnet-fields input { flex: 1 1 220px; width: 100%; min-width: 0; padding: 14px 16px; border: 1px solid #a4a797; border-radius: 10px; font: inherit; font-size: 16px; background: #fff; color: var(--ink); }
+.lead-magnet-fields .button { flex: 0 0 auto; }
+.lead-magnet-form .lead-magnet-consent { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; font-weight: 400; line-height: 1.5; }
+.lead-magnet-consent input { flex: 0 0 18px; width: 18px; height: 18px; margin-top: 2px; accent-color: var(--green); }
+.lead-magnet-consent a { text-decoration: underline; }
+.lead-magnet-note { color: var(--muted); font-size: 13px; line-height: 1.5; margin: 0; }
+.lead-magnet-success { margin-top: 22px; padding: 22px; background: #eef1e4; border: 1px solid var(--line); border-radius: 16px; }
+.lead-magnet-success h3 { margin: 0 0 10px; font-size: 23px; }
+.lead-magnet-success p { font-size: 16px; line-height: 1.6; }
+@media (max-width: 760px) { .lead-magnet-inner { grid-template-columns: 1fr; gap: 32px; } .guide-preview { max-width: 260px; width: 100%; margin: 0 auto; } .lead-magnet-section { padding: 42px 0; } }
+@media (max-width: 480px) { .lead-magnet-fields .button { width: 100%; } }

@@ -1,4 +1,4 @@
-# Otthonod Piaca – 1.7 / GYIK és Analytics
+# Otthonod Piaca – 1.8 / PDF útmutató
 
 Teljes Next.js-projekt, az elfogadott világos zsályazöld–bézs landinggel, működő chatkóddal és Formspree-re átállított visszahíváskérő űrlappal.
 
@@ -98,3 +98,17 @@ A hatkérdéses GYIK az eladási folyamat után, az űrlap előtt található. E
 Az @vercel/analytics csomag és az Analytics komponens bekerült a layoutba, a widgetek után. A Vercel projekt Analytics / Web Analytics részében külön engedélyezni kell a mérést, majd szükség esetén új deployment. A szolgáltatói adatgyűjtés és a dashboard megjelenése nem volt élőben ellenőrizhető. Nem adtunk hozzá saját eseményeket, űrlap- vagy chattartalmat. Az adatkezelési oldal kiegészült a mérés megnevezésével.
 
 Ellenőrizve: production build, GYIK állapotváltás és bezárás, ARIA-kapcsolatok, látható válaszokkal egyező JSON-LD, valamint a korábbi négy funkcionális teszt. npm run test:faq. Kézi mobilos és böngészős megjelenési teszt még szükséges.
+
+## PDF útmutató és e-mailes igénylés
+
+Sorrend: hero (a meglévő előnyökkel), kalkulátor, ötlépéses folyamat, GYIK, PDF-igénylés, kapcsolati űrlap. A chat megmaradt, WhatsApp és új telefonszámos elem nem került be.
+
+A négylapos public/otthonod-piaca-5-hiba.pdf saját szerkesztésű eladói útmutató: árazás, fotók, előkészítés, hirdetési adatok, érdeklődők és alku. Az 1-2 milliós hatás nem általánosított állítás: a PDF csak egy 60 millió Ft × 2% = 1,2 millió Ft szemléltető számolást tartalmaz. Az oldal címe nem ígér konkrét árnyereséget. A PDF végén ellenőrzőlista és a kapcsolati szekcióra mutató link van. Újragenerálás: scripts/create-guide.py, Python reportlab és a scriptben megadott DejaVu fontok szükségesek.
+
+A LeadMagnetSection külön osztályokat használ, így a korábbi .lead-form stílusait nem írja felül. A /api/lead a meglévő Formspree-címre küldi az e-mailt, forrást, időpontot és két külön hozzájárulás állapotát. Az adatkezelési hozzájárulás kötelező; az egyszeri e-mailes egyeztetés önkéntes és alapból nincs bejelölve. Ha a contact_consent mezőben „Nem kérek megkeresést.” szerepel, az igénylőt ne keresd meg értékesítési céllal. Nem indul automatikus hírlevél, levélküldés vagy visszahívás.
+
+A PDF-link szolgáltatói sikeres átvétel után válik láthatóvá. Külön kattintás menti a fájlt; a felület nem állítja, hogy már elindult a letöltés. A public mappából a PDF közvetlen URL-en is hozzáférhető, ez nem hozzáférés-védett dokumentumtár.
+
+Az új API kezeli a hibás adatokat, hozzájárulás hiányát, honeypot mezőt, túlméretes törzset, szolgáltatói elutasítást, 429-et, nem JSON választ és időtúllépést. Az eredeti űrlaphoz hasonlóan a szolgáltató spamvédelmére és kvótájára támaszkodik; nincs garantált szolgáltatóközi idempotencia. Időtúllépésnél ne küldj újra azonnal. Egyedi mezőkövetelmények a Formspree-fiókban megakadályozhatják az e-mail-only igénylést; ezt éles saját próbaküldéssel ellenőrizni kell.
+
+Ellenőrzések: npm run test:lead, npm run test:lead-ui, a korábbi öt teszt és production build. Minden külső küldés szimulált volt, tényleges Formspree-bejegyzést nem hoztunk létre. A PDF mind a négy oldalát renderelve ellenőriztük. Az Analytics dashboardon beérkező adatot és a Vercel preview-t a csomag készítésekor nem ellenőriztük élőben.

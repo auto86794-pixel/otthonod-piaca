@@ -5,6 +5,7 @@ import LeadForm from "./LeadForm";
 import ValueCalculator from "./ValueCalculator";
 import ProcessSection from "./ProcessSection";
 import FaqSection from "./FaqSection";
+import LeadMagnetSection from "./LeadMagnetSection";
 export const metadata: Metadata = {
   alternates: { canonical: "https://otthonodpiaca.hu/" },
 };
@@ -38,7 +39,8 @@ export default function Home() {
         </div>
       </header>
       <main id="tartalom">
-        <section className="hero wrap">
+        <section className="hero-section">
+        <div className="hero wrap">
           <div className="hero-copy">
             <p className="eyebrow">
               INGATLANELADÁS DEBRECENBEN
@@ -46,16 +48,8 @@ export default function Home() {
               ÉS KÖRNYÉKÉN
             </p>
             <div className="rule" />
-            <h1>
-              Az otthonod érték.
-              <br />
-              Hozzuk ki belőle
-              <br />a legtöbbet.
-            </h1>
-            <p className="hero-description">
-              Személyes figyelem, átgondolt értékesítés és helyismeret az első
-              beszélgetéstől az átadásig.
-            </p>
+            <h1>Eladod a lakásod?<br />Tudd meg,<br />mennyit ér.</h1>
+            <p className="hero-description">Ingyenes, személyes értékbecslés Debrecenben és környékén. Átgondolt árazás és támogatás az első egyeztetéstől a kulcsátadásig.</p>
             <div className="hero-actions">
               <a className="button primary" href="#kapcsolat">
                 Kérem az értékbecslést <span aria-hidden="true">→</span>
@@ -74,8 +68,8 @@ export default function Home() {
               sizes="(max-width: 760px) 100vw, 55vw"
             />
           </div>
-        </section>
-        <section
+        </div>
+        <div
           id="miert"
           className="benefits wrap"
           aria-label="Amiben segítünk"
@@ -100,6 +94,7 @@ export default function Home() {
               <p>{item.text}</p>
             </article>
           ))}
+        </div>
         </section>
         <section
           className="section calculator-section"
@@ -120,6 +115,7 @@ export default function Home() {
         </section>
         <ProcessSection />
         <FaqSection />
+        <LeadMagnetSection />
         <section id="kapcsolat" className="contact-section">
           <div className="contact-inner wrap">
             <div className="contact-copy">
