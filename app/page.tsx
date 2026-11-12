@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Brand from "./Brand";
 import LeadForm from "./LeadForm";
+import ValueCalculator from "./ValueCalculator";
 const icons = [
   <svg key="chart" viewBox="0 0 64 64">
     <path d="M9 53V36h10v17zm18 0V23h10v30zm18 0V9h10v44z" />
@@ -92,6 +93,23 @@ export default function Home() {
               <p>{item.text}</p>
             </article>
           ))}
+        </section>
+        <section
+          className="section calculator-section"
+          id="ertekbecsles"
+          aria-labelledby="calc-title"
+        >
+          <div className="section-inner wrap">
+            <p className="eyebrow">ELSŐ LÉPÉS AZ ELADÁS FELÉ</p>
+            <h2 className="section-title" id="calc-title">
+              Mennyit érhet a lakásod?
+            </h2>
+            <p className="section-lead">
+              Próbáld ki az árkalkulátort, majd kérj személyes egyeztetést a
+              valós piaci érték meghatározásához.
+            </p>
+            <ValueCalculator />
+          </div>
         </section>
         <section id="kapcsolat" className="contact-section">
           <div className="contact-inner wrap">

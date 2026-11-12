@@ -1,4 +1,4 @@
-# Otthonod Piaca – 1.2 / Formspree
+# Otthonod Piaca – 1.3 / Kalkulátor
 
 Teljes Next.js-projekt, az elfogadott világos zsályazöld–bézs landinggel, működő chatkóddal és Formspree-re átállított visszahíváskérő űrlappal.
 
@@ -49,6 +49,7 @@ A korábbi csomag chatkomponense és Groq API-kapcsolata változatlanul megmarad
 ## Ellenőrzések
 
 ```cmd
+npm run test:calculator
 npm run test:interest
 npm run test:chat
 npm run build
@@ -61,3 +62,13 @@ Böngészőben ellenőrizve: aktív gomb, beviteli mezők, hozzájárulás, hib�
 ## Technikai adatok
 
 Next.js 16.4.6, React 19.3.1, TypeScript. Node.js legalább 20.9, ajánlott aktuális LTS. A node_modules, .next, .git és a titkos .env.local nem része a csomagnak.
+
+## Lakásár-kalkulátor
+
+A benefit szekció után jelenik meg. Az app/ValueCalculator.tsx a felület, az app/lib/valuation.ts tartalmazza a számítást és a módosítható árakat. Minden ár Ft/m²-ben szerepel: a küldött 750-es érték 750 000 Ft/m² mintaárként került be. A mintaárak nem ellenőrzött, aktuális piaci adatok. Ez a változat bemutató; valós értékbecsléshez az árakat és a korrekciókat helyi szakmai adatokkal kell beállítani. A felület ezt a számítás előtt és az eredménynél is jelzi.
+
+A bizonytalan vagy kevert helymegnevezések helyett külön Belváros, Vénkert, Kertváros, egyéb debreceni városrész, Haláp, Józsa és környéki település opciók szerepelnek. Újszentmargita, Hatvan és a bizonytalan „Nagyerő” megnevezés nem kapott önkényes helyi árat.
+
+A modell az alapterületet, állapotot és opcionális szobaszámot kezeli. A ±8%-os ársáv nem statisztikai pontosságot jelent. Nem veszi figyelembe például az épülettípust, emeletet vagy energetikát. Ház és telek esetén személyes egyeztetés javasolt. A számítás helyben történik, nem küld adatot külső szolgáltatásnak.
+
+Ellenőrizve: helyes Ft-egység, állapot- és szobaszám-szorzók, szélsőértékek, érvénytelen mezők. Böngészőben a 62 m²-es belvárosi mintapélda 42,8–50,2 millió Ft sávot ad; módosításkor az eredmény eltűnik, 14 m² esetén a számítás nem indítható. A kalkulátor-, chat- és űrlaptesztek, valamint a production build sikeresek.
