@@ -1,6 +1,6 @@
 {
   "name": "otthonod-piaca",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "private": true,
   "scripts": {
     "dev": "node scripts/dev.mjs",
@@ -13,7 +13,8 @@
     "test:exit": "node scripts/check-exit.cjs",
     "test:faq": "node scripts/check-faq.cjs",
     "test:lead": "node scripts/check-lead.cjs",
-    "test:lead-ui": "node scripts/check-lead-ui.cjs"
+    "test:lead-ui": "node scripts/check-lead-ui.cjs",
+    "test:callback-ui": "node scripts/check-callback-ui.cjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -2,11 +2,20 @@ import { NextRequest, NextResponse } from "next/server";
 
 export const runtime = "nodejs";
 export const maxDuration = 30;
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/myewzjjg";
+
 const reply = (error: string, status: number) =>
   NextResponse.json({ error }, { status, headers: { "Cache-Control": "no-store" } });
 
 export async function POST(req: NextRequest) {
+  const configuredEndpoint = process.env.FORMSPREE_ENDPOINT?.trim() ?? "";
+  let endpoint: URL;
+  try {
+    endpoint = new URL(configuredEndpoint);
+    if (endpoint.protocol !== "https:" || endpoint.hostname !== "formspree.io" || endpoint.port || endpoint.username || endpoint.password || endpoint.search || endpoint.hash || !/^\/f\/[a-zA-Z0-9]+$/.test(endpoint.pathname)) throw new Error("invalid endpoint");
+  } catch {
+    console.error("Missing or invalid FORMSPREE_ENDPOINT env variable");
+    return reply("A küldés jelenleg nem elérhető. Kérjük, próbáld újra később.", 503);
+  }
   const origin = req.headers.get("origin");
   const expectedOrigin = `${req.nextUrl.protocol}//${req.headers.get("host") || req.nextUrl.host}`;
   if (origin && origin !== expectedOrigin) return reply("Nem engedélyezett kérés.", 403);
@@ -42,7 +51,7 @@ export async function POST(req: NextRequest) {
   const requestedAt = new Date().toISOString();
 
   try {
-    const response = await fetch(FORMSPREE_ENDPOINT, {
+    const response = await fetch(endpoint.toString(), {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json", Referer: `${expectedOrigin}/` },
       body: JSON.stringify({

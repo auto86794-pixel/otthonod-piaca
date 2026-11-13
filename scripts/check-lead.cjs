@@ -30,6 +30,14 @@ async function check(data, status, headers) {
   return result;
 }
 (async () => {
+  global.fetch = async () => { throw new Error('configuration must block fetch'); };
+  for (const configured of [undefined, '', 'http://formspree.io/f/test', 'https://example.com/f/test', 'https://formspree.io.evil.test/f/test', 'https://formspree.io/f/test?x=1', 'https://user@formspree.io/f/test', 'https://formspree.io/f/test#x', 'https://formspree.io/f/']) {
+    if (configured === undefined) delete process.env.FORMSPREE_ENDPOINT;
+    else process.env.FORMSPREE_ENDPOINT = configured;
+    await check(valid, 503);
+  }
+  process.env.FORMSPREE_ENDPOINT = ' https://formspree.io/f/pdftest ';
+
   global.fetch = async () => { calls++; throw Error('invalid input must not reach provider'); };
   await check(valid, 403, { origin: 'https://foreign.example' });
   await check(valid, 415, { 'content-type': 'text/plain' });
@@ -47,7 +55,7 @@ async function check(data, status, headers) {
   for (const key of ['RESEND_API_KEY', 'LEAD_FROM_EMAIL', 'LEAD_TO_EMAIL', 'NEXT_PUBLIC_CONTACT_NAME', 'NEXT_PUBLIC_CONTACT_EMAIL', 'NEXT_PUBLIC_CONTROLLER_ADDRESS']) delete process.env[key];
   global.fetch = async (url, options) => {
     calls++;
-    assert.equal(url, 'https://formspree.io/f/myewzjjg');
+    assert.equal(url, 'https://formspree.io/f/pdftest');
     assert.equal(options.method, 'POST');
     assert.equal(options.headers.Accept, 'application/json');
     assert.equal(options.headers.Referer, 'https://test.example/');

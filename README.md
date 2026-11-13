@@ -1,4 +1,4 @@
-# Otthonod Piaca – 1.8 / PDF útmutató
+# Otthonod Piaca – 1.9 / Űrlapfinomítás
 
 Teljes Next.js-projekt, az elfogadott világos zsályazöld–bézs landinggel, működő chatkóddal és Formspree-re átállított visszahíváskérő űrlappal.
 
@@ -15,11 +15,9 @@ Helyi cím: http://localhost:3000
 
 ## Visszahíváskérő űrlap
 
-A cím már be van építve az app/api/interest/route.ts fájlba:
+A visszahíváskérés címét a FORMSPREE_CALLBACK_ENDPOINT szerveroldali környezeti változó adja meg; a PDF-igényléshez a FORMSPREE_ENDPOINT kell. Nincs kódba épített tartalék cím.
 
-https://formspree.io/f/myewzjjg
-
-A böngésző a saját /api/interest végpontunkat hívja. A szerver ellenőrzi az adatokat, a hozzájárulást és a honeypot mezőt, majd JSON-kéréssel továbbítja a megadott Formspree-űrlapnak. Nem kér és nem használ Resend-kulcsot, feladói címet vagy további e-mail-küldési környezeti változót.
+A böngésző a saját /api/interest végpontunkat hívja. A szerver ellenőrzi az adatokat, a hozzájárulást és a honeypot mezőt, majd JSON-kéréssel továbbítja a megadott Formspree-űrlapnak. Nem kér és nem használ Resend-kulcsot, feladói címet ; a két Formspree-cél megadása viszont kötelező.
 
 Az űrlap gombja aktív, küldéskor átmenetileg letiltódik, a gyors dupla kattintást külön ref-zár is megakadályozza. Hiba esetén a kitöltött mezők megmaradnak. A sikerüzenet csak a fogadó szolgáltatás sikeres HTTP- és értelmezhető JSON-válasza után jelenik meg. Ez a szolgáltatói átvételt jelzi; a postafiókba történő tényleges kézbesítést külön kell ellenőrizni.
 
@@ -55,7 +53,7 @@ npm run test:chat
 npm run build
 ```
 
-A tesztek minden szolgáltatói kérést szimulálnak, ezért nem küldenek valódi Formspree-bejegyzést, e-mailt vagy Groq-kérést. A Formspree-teszt ellenőrzi az adatvalidációt, a fix célcímet, a mezőket, a Resend-függőség megszűnését, a sikert, a 429-es korlátot, a szolgáltatói elutasítást, a nem JSON választ és a hálózati hibát.
+A tesztek minden szolgáltatói kérést szimulálnak, ezért nem küldenek valódi Formspree-bejegyzést, e-mailt vagy Groq-kérést. A Formspree-teszt ellenőrzi az adatvalidációt, az env-ből olvasott célcímet, a mezőket, a Resend-függőség megszűnését, a sikert, a 429-es korlátot, a szolgáltatói elutasítást, a nem JSON választ és a hálózati hibát.
 
 Böngészőben ellenőrizve: aktív gomb, beviteli mezők, hozzájárulás, hibás telefonszám elutasítása és az adatok megtartása. Éles Formspree-próbaküldés és a célpostafiók kézbesítési ellenőrzése nem történt a csomag készítésekor; ezt az élesítés után a saját fiókban kell ellenőrizni.
 
@@ -112,3 +110,29 @@ A PDF-link szolgáltatói sikeres átvétel után válik láthatóvá. Külön k
 Az új API kezeli a hibás adatokat, hozzájárulás hiányát, honeypot mezőt, túlméretes törzset, szolgáltatói elutasítást, 429-et, nem JSON választ és időtúllépést. Az eredeti űrlaphoz hasonlóan a szolgáltató spamvédelmére és kvótájára támaszkodik; nincs garantált szolgáltatóközi idempotencia. Időtúllépésnél ne küldj újra azonnal. Egyedi mezőkövetelmények a Formspree-fiókban megakadályozhatják az e-mail-only igénylést; ezt éles saját próbaküldéssel ellenőrizni kell.
 
 Ellenőrzések: npm run test:lead, npm run test:lead-ui, a korábbi öt teszt és production build. Minden külső küldés szimulált volt, tényleges Formspree-bejegyzést nem hoztunk létre. A PDF mind a négy oldalát renderelve ellenőriztük. Az Analytics dashboardon beérkező adatot és a Vercel preview-t a csomag készítésekor nem ellenőriztük élőben.
+
+## Űrlapfinomítás - kötelező új konfiguráció
+
+A .env.local fájlhoz add hozzá, meglévő kulcsaid megőrzésével:
+
+```env
+FORMSPREE_ENDPOINT=https://formspree.io/f/myewzjjg
+FORMSPREE_CALLBACK_ENDPOINT=https://formspree.io/f/myewzjjg
+```
+
+Ugyanezek külön szükségesek a Vercel projekt környezeti változói között is. A .env.local nem kerül Gitbe; önmagában nem állítja be az éles környezetet. A Vercel értékek mentése után új deployment szükséges. Mindkét cél jelenleg azonos, később külön Formspree-űrlap is megadható.
+
+A szerver mindkét címet futásidőben ellenőrzi: kizárólag https://formspree.io/f/azonosito fogadható el, hitelesítési adatok, query és fragment nélkül. Hiányzó vagy hibás cél 503-at ad, és nem indul továbbítás. Nincs titok vagy teljes URL a naplózott hibaüzenetben.
+
+A meglévő LeadForm és /api/interest maradt használatban, nem keletkezett párhuzamos CallbackForm vagy /api/callback. A név 2-80, a hely 2-120 karakter, levágás nélkül; a név és cím szóközei normalizálódnak. Magyar mobil és vezetékes számok +36 formára alakulnak (06, 0036 és +36 bemenetből). Ez formátumellenőrzés, nem az előfizetés vagy a hívhatóság igazolása. A CR/LF, HTML-jelölés, nem támogatott formátum és hiányzó hozzájárulás hibát ad. A helymező támogatja például az 1/B házszámot is.
+
+A visszahíváskérés tartalmazza a callback-form forrást, callback-v1 hozzájárulás-verziót és UTC időpontot. Mindkét API egyértelmű szolgáltatói visszaigazolást vár. A UI zárolja a dupla küldést, hiba esetén megőrzi a mezőket, siker esetén a visszajelzésre helyezi a fókuszt. A mobiltelefon-billentyűzet inputMode=tel alapján nyílik. A PDF sikeres igénylése után megjelenik a kapcsolati szekcióra mutató szöveges link.
+
+Ellenőrizve: konfiguráció hiánya/hibája, két külön cél, telefonszám-normalizálás, mezőhatárok, hozzájárulás, szolgáltatói hibák, dupla küldés és UI-visszajelzés szimulált tesztekkel. Production build sikeres. Éles Formspree-küldés, Vercel-konfigurálás és böngészős megjelenési próba nem történt ebben a csomagban.
+
+```cmd
+npm run test:interest
+npm run test:callback-ui
+npm run test:lead
+npm run test:lead-ui
+```

@@ -53,6 +53,7 @@ export default function LeadMagnetSection() {
               <h3>Köszönjük! Az útmutató letölthető.</h3>
               <p>Kattints a gombra a PDF mentéséhez. {contact ? "Az egyszeri e-mailes megkeresést is kérted; ez nem automatikus hírlevél-feliratkozás." : "Nem kértél e-mailes megkeresést."}</p>
               <a className="button primary" href={PDF_URL} download>Letöltöm az útmutatót</a>
+              <p className="lead-magnet-cross">Most már tudod, mire érdemes figyelni – <a href="#kapcsolat">kérj visszahívást</a>, és személyesen is átnézzük a te esetedet.</p>
             </div>
           ) : (
             <form className="lead-magnet-form" onSubmit={handleSubmit} aria-busy={busy}>

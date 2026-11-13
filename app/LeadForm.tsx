@@ -5,6 +5,7 @@ export default function LeadForm() {
   const [busy, setBusy] = useState(false);
   const [success, setSuccess] = useState(false);
   const sending = useRef(false);
+  const successRef = useRef<HTMLDivElement>(null);
   return (
     <form
       className="lead-form"
@@ -26,20 +27,21 @@ export default function LeadForm() {
             body: JSON.stringify(Object.fromEntries(data)),
             signal: AbortSignal.timeout(20000),
           });
-          const result = await r.json();
+          const result = await r.json().catch(() => null);
           if (!r.ok)
             throw new Error(
-              result.error || "A küldés nem sikerült. Kérjük, próbáld újra.",
+              result?.error || "A küldés nem sikerült. Kérjük, próbáld újra.",
             );
-          if (result.ok !== true) throw new Error("Nem érkezett sikeres visszaigazolás. Kérjük, próbáld újra később.");
+          if (result?.ok !== true) throw new Error("Nem érkezett sikeres visszaigazolás. Kérjük, próbáld újra később.");
           setSuccess(true);
           setStatus(
             "Köszönjük a megkeresésed! A megadott telefonszámon jelentkezünk.",
           );
           form.reset();
+          window.requestAnimationFrame(() => successRef.current?.focus());
         } catch (error) {
           setStatus(
-            error instanceof Error && error.name !== "TimeoutError"
+            error instanceof Error && !["TimeoutError", "AbortError", "TypeError"].includes(error.name)
               ? error.message
               : "A küldést nem sikerült visszaigazolni. Lehetséges, hogy a kérés már megérkezett. Kérjük, ne küldd el azonnal újra.",
           );
@@ -50,10 +52,11 @@ export default function LeadForm() {
       }}
     >
       {success ? (
-        <div className="success" role="status">
-          <span>✓</span>
+        <div className="success" role="status" ref={successRef} tabIndex={-1}>
+          <span aria-hidden="true">✓</span>
           <h3>Köszönjük a bizalmad!</h3>
           <p>{status}</p>
+          <a className="text-link" href="#letoltes">Addig is nézd meg az ingyenes útmutatót</a>
         </div>
       ) : (
         <>
@@ -67,7 +70,7 @@ export default function LeadForm() {
             placeholder="Add meg a neved"
             required
             minLength={2}
-            maxLength={100}
+            maxLength={80}
           />
           <label htmlFor="phone">
             Telefonszám <span>*</span>
@@ -76,11 +79,12 @@ export default function LeadForm() {
             id="phone"
             name="phone"
             type="tel"
+            inputMode="tel"
             autoComplete="tel"
             placeholder="Pl. +36 30 123 4567"
             required
             minLength={7}
-            maxLength={25}
+            maxLength={40}
           />
           <label htmlFor="location">
             Ingatlan helye <span>*</span>
@@ -92,7 +96,7 @@ export default function LeadForm() {
             placeholder="Pl. Debrecen, Hatvan utca"
             required
             minLength={2}
-            maxLength={180}
+            maxLength={120}
           />
           <div className="trap" aria-hidden="true">
             <label htmlFor="website">Weboldal</label>

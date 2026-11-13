@@ -34,5 +34,6 @@ const event={preventDefault(){},currentTarget:{}};
  fetchMode='success';await all.find(n=>n.type==='form').props.onSubmit(event);
  all=render();assert(all.some(n=>n.type==='a'&&n.props.download&&n.props.href==='/otthonod-piaca-5-hiba.pdf'));
  assert(!all.some(n=>n.type==='form'));
+ assert(all.some(n=>n.type==='a'&&n.props.href==='#kapcsolat')); 
  console.log('PDF UI checks passed: pending lock, failure preserves input, download only after acknowledged success.');
 })().catch(error=>{console.error(error);process.exitCode=1;});
